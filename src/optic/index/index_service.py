@@ -246,6 +246,10 @@ def print_index_info(index_dicts, no_color) -> None:
     :return: None
     :rtype: None
     """
+    if not index_dicts:
+        print("No matching indices to display.")
+        return
+
     optic_color = OpticColor()
     if no_color:
         optic_color.disable_colors()

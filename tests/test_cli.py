@@ -180,6 +180,16 @@ class TestCli:
         )
         mock_exit.assert_called_once_with(1)
 
+    def test_index_info_unknown_cluster(self, runner, optic_settings_file, cluster_config_file):
+        result = runner.invoke(
+            cli, ["--settings", optic_settings_file, "index", "info", "--cluster", "missing"]
+        )
+
+        assert result.exit_code == 0
+        assert "missing is not present in cluster configuration file" in result.output
+        assert "No matching indices to display." in result.output
+        assert "Index Info" not in result.output
+
     def test_index_info_command_success(
         self,
         mocker,
